@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Titan Collective</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        
+ /* html, body, a, button {
+    cursor: none !important;
+} */
+
+/* --- BASE STYLES --- */
+body { 
+    font-family: 'Inter', sans-serif; 
+    background-color: black; 
+    color: white; 
+    overflow-x: hidden;
+}
+
+/* Hide default mouse for everything */
+html, body, a, button, .artifact-card {
+    cursor: none !important;
+}
+
+/* Titan Typography */
+h1, h2, h3 {
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+}
+
+/* Artifact Card Hover */
+.artifact-card:hover .artifact-image { 
+    transform: scale(1.05); 
+}
+
+/* --- CUSTOM CURSOR (TITAN RETICLE) --- */
+#cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #dc2626;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+}
+
+#cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(220, 38, 38, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Smooth transition for size and color when hovering */
+    transition: width 0.3s, height 0.3s, background-color 0.3s, border-radius 0.3s, border-color 0.3s;
+}
+
+/* Crosshair effect inside the reticle */
+#cursor-outline::after, #cursor-outline::before {
+    content: '';
+    position: absolute;
+    background-color: rgba(220, 38, 38, 0.3);
+}
+#cursor-outline::before { width: 1px; height: 10px; }
+#cursor-outline::after { width: 10px; height: 1px; }
+
+/* HOVER STATE */
+.cursor-hover {
+    width: 60px !important;
+    height: 60px !important;
+    background-color: rgba(220, 38, 38, 0.1) !important;
+    border-color: #dc2626 !important;
+    border-width: 2px !important;
+    border-radius: 50% !important;
+}
+
+/* CLICK PARTICLES (SHATTER) */
+.cursor-particle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    background-color: #dc2626;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 1px;
+    box-shadow: 0 0 10px #dc2626;
+}
+    </style>
+</head>
+<body>
+
+   <div id="cursor-dot"></div>
+<div id="cursor-outline"></div>
+    <div id="mobile-menu" class="hidden fixed inset-0 z-[60] bg-black/95 backdrop-blur-2xl flex-col items-center justify-center space-y-8 text-center p-6">
+        <a href="index.html#selected-artifacts" onclick="toggleMobileMenu()" class="text-3xl font-black uppercase tracking-tighter hover:text-red-600 transition">Work</a>
+        <a href="index.html#services-section" onclick="toggleMobileMenu()" class="text-3xl font-black uppercase tracking-tighter hover:text-red-600 transition">Services</a>
+        <a href="index.html#contact-section" onclick="toggleMobileMenu()" class="text-3xl font-black text-red-600 uppercase tracking-tighter">Start Project</a>
+        <button onclick="toggleMobileMenu()" class="mt-12 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-white">✕</button>
+    </div>
+
+    <nav class="fixed w-full z-50 px-6 py-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center border border-white/10 bg-black/50 backdrop-blur-xl p-4 rounded-2xl">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center font-black text-white">T</div>
+                <span class="font-black uppercase tracking-tighter text-xl">Titan</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8 text-[10px] font-black uppercase tracking-widest">
+                <a href="index.html#selected-artifacts" class="hover:text-red-600 transition">Work</a>
+                <a href="index.html#services-section" class="hover:text-red-600 transition">Services</a>
+                <a href="index.html#contact-section" class="hover:text-red-600 transition pl-8 border-l border-white/10">Contact</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <a href="index.html#contact-section" class="hidden sm:block bg-white text-black px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition">
+                    Start Project
+                </a>
+                <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5 border border-white/10 rounded-xl">
+                    <span class="w-5 h-[2px] bg-white"></span>
+                    <span class="w-5 h-[2px] bg-white"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-48 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <span class="text-red-600 text-[10px] font-black uppercase tracking-[0.4em] block mb-4">Archive_01</span>
+            <h1 class="text-6xl md:text-8xl font-black leading-none mb-8">Selected <br> Artifacts</h1>
+            <p class="max-w-xl text-slate-500 font-bold uppercase text-xs tracking-widest leading-relaxed">
+                A curation of high-impact digital systems and brand identities designed for the next generation of industry leaders.
+            </p>
+        </div>
+    </header>
+
+    <section class="pb-32 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+            <a href="case-study.html" class="artifact-card group">
+                <div class="relative aspect-video bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-white/10 mb-6">
+                    <div class="artifact-image w-full h-full bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-700"></div>
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                        <span class="px-8 py-3 bg-white text-black font-black uppercase text-[10px] tracking-widest rounded-full">View Case Study</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-start px-4">
+                    <div>
+                        <h3 class="text-2xl font-black">Nexus Protocol</h3>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-500">Identity & Full-Stack Platform</p>
+                    </div>
+                    <span class="text-red-600 font-black italic">2025</span>
+                </div>
+            </a>
+
+            <div class="artifact-card group">
+                <div class="relative aspect-video bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-white/10 mb-6">
+                    <div class="artifact-image w-full h-full bg-[url('https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-700"></div>
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                        <span class="px-8 py-3 bg-white text-black font-black uppercase text-[10px] tracking-widest rounded-full">View Case Study</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-start px-4">
+                    <div>
+                        <h3 class="text-2xl font-black">Aether Intelligence</h3>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-500">AI Interface Design</p>
+                    </div>
+                    <span class="text-red-600 font-black italic">2024</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 px-6 border-t border-white/5 bg-black">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">
+                © 2026 Titan Collective.
+            </div>
+            <div class="flex space-x-8">
+                <a href="#" class="text-slate-500 hover:text-red-600 transition text-[10px] font-black uppercase tracking-widest">Twitter</a>
+                <a href="#" class="text-slate-500 hover:text-red-600 transition text-[10px] font-black uppercase tracking-widest">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Ensure GSAP is loaded before this script runs
+document.addEventListener('DOMContentLoaded', () => {
+    // Select elements once the DOM is ready
+    const dot = document.getElementById('cursor-dot');
+    const outline = document.getElementById('cursor-outline');
+
+    // Safety check to prevent errors if elements aren't found
+    if (!dot || !outline) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
+
+    // 1. Track Mouse Position (Fixed Case Sensitivity)
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY; 
+        
+        // Immediate position for the dot
+        gsap.set(dot, { x: mouseX - 3, y: mouseY - 3 });
+    });
+
+    // 2. Animate the Lagging Reticle
+    function animateCursor(time) {
+        // Smoothly interpolate position (0.15 = lag speed)
+        outlineX += (mouseX - outlineX) * 0.15;
+        outlineY += (mouseY - outlineY) * 0.15;
+
+        gsap.set(outline, { 
+            x: outlineX - 20, 
+            y: outlineY - 20,
+            rotate: time * 0.05 // Constant slow rotation
+        });
+
+        requestAnimationFrame(animateCursor);
+    }
+    requestAnimationFrame(animateCursor);
+
+    // 3. Hover States
+    const interactives = document.querySelectorAll('button, a, .artifact-card');
+    interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => outline.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => outline.classList.remove('cursor-hover'));
+    });
+
+    // 4. Shatter Effect (Click)
+    window.addEventListener('mousedown', (e) => {
+        const particleCount = 8;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('cursor-particle');
+            document.body.appendChild(particle);
+
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = Math.random() * 100 + 50;
+            const destinationX = Math.cos(angle) * velocity;
+            const destinationY = Math.sin(angle) * velocity;
+
+            gsap.set(particle, { x: e.clientX, y: e.clientY });
+
+            gsap.to(particle, {
+                x: `+=${destinationX}`,
+                y: `+=${destinationY}`,
+                opacity: 0,
+                scale: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                onComplete: () => particle.remove()
+            });
+        }
+        
+        // Visual punch/pulse on the outline when clicking
+        gsap.to(outline, { scale: 1.5, duration: 0.1, yoyo: true, repeat: 1 });
+    });
+});
+
+// Mobile Menu Toggle Function
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+        // Prevent background scrolling when menu is open
+        document.body.style.overflow = menu.classList.contains('hidden') ? 'auto' : 'hidden';
+    }
+}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</body>
+</html>

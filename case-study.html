@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Protocol | Case Study</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: black; color: white; scroll-behavior: smooth; }
+        .sticky-summary { top: 120px; }
+        /* --- BASE STYLES --- */
+body { 
+    font-family: 'Inter', sans-serif; 
+    background-color: black; 
+    color: white; 
+    overflow-x: hidden;
+}
+
+/* Hide default mouse for everything */
+html, body, a, button, .artifact-card {
+    cursor: none !important;
+}
+
+/* Titan Typography */
+h1, h2, h3 {
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+}
+
+/* Artifact Card Hover */
+.artifact-card:hover .artifact-image { 
+    transform: scale(1.05); 
+}
+
+/* --- CUSTOM CURSOR (TITAN RETICLE) --- */
+#cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #dc2626;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+}
+
+#cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(220, 38, 38, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Smooth transition for size and color when hovering */
+    transition: width 0.3s, height 0.3s, background-color 0.3s, border-radius 0.3s, border-color 0.3s;
+}
+
+/* Crosshair effect inside the reticle */
+#cursor-outline::after, #cursor-outline::before {
+    content: '';
+    position: absolute;
+    background-color: rgba(220, 38, 38, 0.3);
+}
+#cursor-outline::before { width: 1px; height: 10px; }
+#cursor-outline::after { width: 10px; height: 1px; }
+
+/* HOVER STATE */
+.cursor-hover {
+    width: 60px !important;
+    height: 60px !important;
+    background-color: rgba(220, 38, 38, 0.1) !important;
+    border-color: #dc2626 !important;
+    border-width: 2px !important;
+    border-radius: 50% !important;
+}
+
+/* CLICK PARTICLES (SHATTER) */
+.cursor-particle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    background-color: #dc2626;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 1px;
+    box-shadow: 0 0 10px #dc2626;
+}
+    </style>
+</head>
+<body>
+    <div id="cursor-dot"></div>
+<div id="cursor-outline"></div>
+
+    <nav class="fixed w-full z-50 px-6 py-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center border border-white/10 bg-black/50 backdrop-blur-xl p-4 rounded-2xl">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center font-black">T</div>
+                <span class="font-black uppercase tracking-tighter text-xl">Titan</span>
+            </a>
+            <a href="portfolio.html" class="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white transition">← Back to Archive</a>
+        </div>
+    </nav>
+
+    <header class="pt-48 pb-20 px-6 border-b border-white/5">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-end">
+            <div>
+                <span class="text-red-600 text-[10px] font-black uppercase tracking-[0.4em] block mb-4">Case Study_01</span>
+                <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-8">Nexus <br> Protocol</h1>
+                <div class="flex flex-wrap gap-4">
+                    <span class="px-4 py-2 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest">Fintech</span>
+                    <span class="px-4 py-2 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest">Web3</span>
+                    <span class="px-4 py-2 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest">2025</span>
+                </div>
+            </div>
+            <div class="pb-2">
+                <p class="text-xl text-slate-400 font-medium leading-relaxed italic">
+                    "Re-engineering the liquidity layer for decentralized high-frequency trading."
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-24">
+        <div class="flex flex-col lg:flex-row gap-20">
+            
+            <aside class="lg:w-1/3">
+                <div class="sticky-summary space-y-12">
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-600 mb-4">The Objective</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed font-bold">Nexus required a brand identity and a high-performance trading dashboard that could handle $200M+ in daily volume without latency.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-600 mb-4">The Stack</h4>
+                        <ul class="text-sm font-black uppercase tracking-widest space-y-2">
+                            <li>Next.js 15</li>
+                            <li>Rust Backend</li>
+                            <li>Tailwind CSS</li>
+                            <li>GSAP Animations</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:w-2/3 space-y-24">
+                <div class="aspect-video bg-zinc-900 rounded-[3rem] overflow-hidden border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2832&auto=format&fit=crop" alt="Dashboard Preview" class="w-full h-full object-cover">
+                </div>
+
+                <div class="space-y-8">
+                    <h2 class="text-4xl font-black uppercase tracking-tighter italic">Systems Design</h2>
+                    <p class="text-slate-400 leading-relaxed text-lg">
+                        We approached the Nexus project by stripping away the typical 'crypto' fluff. The goal was brutalist efficiency. We developed a custom design system focused on data density and high-contrast readability.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8 py-12 border-y border-white/5">
+                    <div>
+                        <div class="text-5xl font-black text-red-600 mb-2">40%</div>
+                        <div class="text-[10px] font-black uppercase tracking-widest text-slate-500">Latency Reduction</div>
+                    </div>
+                    <div>
+                        <div class="text-5xl font-black text-red-600 mb-2">1.2s</div>
+                        <div class="text-[10px] font-black uppercase tracking-widest text-slate-500">Avg. Load Time</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="aspect-square bg-zinc-900 rounded-[2rem] border border-white/10 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                    <div class="aspect-square bg-zinc-900 rounded-[2rem] border border-white/10 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="py-32 px-6 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-7xl mx-auto text-center">
+            <span class="text-slate-500 text-[10px] font-black uppercase tracking-[0.4em] block mb-8">Next Protocol</span>
+            <a href="#" class="group">
+                <h2 class="text-5xl md:text-8xl font-black uppercase tracking-tighter group-hover:text-red-600 transition duration-500">Aether Intelligence →</h2>
+            </a>
+        </div>
+    </section>
+<section class="py-24 px-6 bg-black">
+    <div class="max-w-7xl mx-auto">
+        <div class="relative overflow-hidden bg-red-600 rounded-[3rem] p-8 md:p-20 group">
+            <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-white/10 rounded-full blur-[80px] group-hover:bg-white/20 transition-all duration-700"></div>
+            
+            <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+                <div class="text-center lg:text-left">
+                    <span class="text-white/80 text-[10px] font-black uppercase tracking-[0.4em] block mb-6">Execution Phase</span>
+                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none text-white mb-8">
+                        Ready to scale <br> your protocol?
+                    </h2>
+                    <p class="text-red-100 text-sm font-bold uppercase tracking-widest max-w-md">
+                        We are currently accepting new partners for Q3 2026. Secure your slot in our development pipeline.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="index.html#contact-section" class="px-12 py-6 bg-white text-black rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-all duration-500 shadow-xl shadow-red-900/20 text-center">
+                        Initiate Project
+                    </a>
+                    <a href="mailto:hello@titan.com" class="px-12 py-6 border border-white/30 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white/10 transition-all duration-300 text-center">
+                        Direct Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+        // Ensure GSAP is loaded before this script runs
+document.addEventListener('DOMContentLoaded', () => {
+    // Select elements once the DOM is ready
+    const dot = document.getElementById('cursor-dot');
+    const outline = document.getElementById('cursor-outline');
+
+    // Safety check to prevent errors if elements aren't found
+    if (!dot || !outline) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
+
+    // 1. Track Mouse Position (Fixed Case Sensitivity)
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY; 
+        
+        // Immediate position for the dot
+        gsap.set(dot, { x: mouseX - 3, y: mouseY - 3 });
+    });
+
+    // 2. Animate the Lagging Reticle
+    function animateCursor(time) {
+        // Smoothly interpolate position (0.15 = lag speed)
+        outlineX += (mouseX - outlineX) * 0.15;
+        outlineY += (mouseY - outlineY) * 0.15;
+
+        gsap.set(outline, { 
+            x: outlineX - 20, 
+            y: outlineY - 20,
+            rotate: time * 0.05 // Constant slow rotation
+        });
+
+        requestAnimationFrame(animateCursor);
+    }
+    requestAnimationFrame(animateCursor);
+
+    // 3. Hover States
+    const interactives = document.querySelectorAll('button, a, .artifact-card');
+    interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => outline.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => outline.classList.remove('cursor-hover'));
+    });
+
+    // 4. Shatter Effect (Click)
+    window.addEventListener('mousedown', (e) => {
+        const particleCount = 8;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('cursor-particle');
+            document.body.appendChild(particle);
+
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = Math.random() * 100 + 50;
+            const destinationX = Math.cos(angle) * velocity;
+            const destinationY = Math.sin(angle) * velocity;
+
+            gsap.set(particle, { x: e.clientX, y: e.clientY });
+
+            gsap.to(particle, {
+                x: `+=${destinationX}`,
+                y: `+=${destinationY}`,
+                opacity: 0,
+                scale: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                onComplete: () => particle.remove()
+            });
+        }
+        
+        // Visual punch/pulse on the outline when clicking
+        gsap.to(outline, { scale: 1.5, duration: 0.1, yoyo: true, repeat: 1 });
+    });
+});
+
+// Mobile Menu Toggle Function
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+        // Prevent background scrolling when menu is open
+        document.body.style.overflow = menu.classList.contains('hidden') ? 'auto' : 'hidden';
+    }
+}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</body>
+</html>
